@@ -1,0 +1,12 @@
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch
+torchvision
+ultralytics
+opencv-python-headless
+streamlit>=1.36
+streamlit-webrtc
+av
+numpy
+pillow
+deepface
+tf-keras
