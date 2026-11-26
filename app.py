@@ -18,6 +18,7 @@ COLOR_MUJER = (203, 0, 255)    # BGR (rosa)
 # ------------------------------------------------
 
 st.set_page_config(page_title="Clasificador de género", page_icon="🎥", layout="centered")
+st.subheader("Creado Por: [@AaronLopez](https://github.com/IsaakLopez)")
 
 
 # ================== CARGA DE MODELOS (una sola vez) ==================
