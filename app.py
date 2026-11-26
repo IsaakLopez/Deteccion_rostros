@@ -43,7 +43,25 @@ def cargar_deepface():
 
 @st.cache_resource
 def cargar_detector():
-    return cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
+    nombre = "haarcascade_frontalface_default.xml"
+    candidatos = [Path(__file__).parent / nombre,               # copia local en el repo
+                  Path(cv2.__file__).parent / "data" / nombre]  # carpeta interna de OpenCV
+    if hasattr(cv2, "data"):
+        candidatos.insert(0, Path(cv2.data.haarcascades) / nombre)
+
+    for ruta in candidatos:
+        if ruta.exists():
+            det = cv2.CascadeClassifier(str(ruta))
+            if not det.empty():
+                return det
+
+    # Último recurso: descargarlo del repositorio oficial de OpenCV
+    import urllib.request
+    destino = Path(__file__).parent / nombre
+    urllib.request.urlretrieve(
+        "https://raw.githubusercontent.com/opencv/opencv/master/data/haarcascades/" + nombre,
+        destino)
+    return cv2.CascadeClassifier(str(destino))
 
 
 # ================== LÓGICA DE PREDICCIÓN ==================
